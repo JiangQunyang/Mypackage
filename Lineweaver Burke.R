@@ -27,8 +27,28 @@ lbp <-  ggplot(lbpdata, aes(x= lS, y= lv)) +
         ylab("1/v") +
         theme_linedraw()
 
-lbp
 
 # We then need to calculate and display the equation for the line of best fit we just plotted.
-# This equation will allow us to calculate useful information such as Vmax, Kcat, and Km. 
+# This equation will allow us to calculate useful information such as Vmax, Kcat, and Km.
 
+#We first apply a linear model (lm) to the data frame and call it "m". 
+m <- lm(lv ~ lS, lbpdata)
+
+lm_eqn = function(m) {
+  l <- list(a = format(coef(m)[1], digits = 2),
+            b = format(abs(coef(m)[2]), digits = 2),
+            r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0)  {
+    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l)    
+  }
+  
+  as.character(as.expression(eq));                 
+}
+
+p1 = lbp + geom_text(aes(x = 0.2, y = 0.01, label = lm_eqn(lm(lv ~ lS, lbpdata))), parse = TRUE)
+p1
+
+# The Lineweaver Burke Plot now displays the equation for the line of best fit.
