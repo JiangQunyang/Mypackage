@@ -1,5 +1,3 @@
-
-
 #Dummy data- the user should replace this with actual values
 #The values of Vmax and Km can be taken from another function able to calculate them
 S <- c(0,1,2,5,8,12,30,50)
@@ -11,7 +9,7 @@ Km <- 3.44
 Xlab <- "Substrate (mM)"  
 Ylab <- "Velocity (nmol/s)"
 
-#We make a data frame combining S and V called "endata
+#We make a data frame combining S and V called "endata"
 
 endata <-data.frame(S,V)
 
@@ -20,14 +18,56 @@ fun_MM <- function(x)y=Vmax*x/(x+Km)
 
 #Now we unify this into a function resulting in the plotting of our graph through ggplot
 
-mich.ment2 <-function (S,V) {
+mich.ment <-function (S,V) {
   library(ggplot2) 
   endata <-data.frame(S,V)
-  enplot<-ggplot(endata, aes (x = S, y = V))+ geom_point() + 
+  enplot<-ggplot(endata, aes (x = S, y = V))+ geom_point(color="black") + 
     xlab(Xlab) +
     ylab(Ylab) +
     theme_bw() +
-    stat_function(fun=fun_MM) + xlim(0, max(S)) #addition of the Michaelis Menten function to graph
+    labs(title ="\nMichaelis-Menten Plot\n")+
+    theme(plot.title = element_text(hjust=0.5))+
+    stat_function(fun=fun_MM,color="blue")+ xlim(0, max(S))
+  
   return(enplot)}
 
-mich.ment2(S,V)
+#the resulting graph:
+mich.ment(S,V)
+
+
+#I also managed to make a function that makes the Michaelis Menten curve an optional addition 
+
+mich.ment2 <-function(S,V,MMcurve=TRUE) {
+  
+  if(MMcurve==TRUE){
+    library(ggplot2) 
+    endata <-data.frame(S,V)
+    enplot<-ggplot(endata, aes (x = S, y = V))+ geom_point(color="black") + 
+      xlab(Xlab) +
+      ylab(Ylab) +
+      theme_bw() +
+      labs(title ="\nMichaelis-Menten Plot\n")+
+      theme(plot.title = element_text(hjust=0.5))+
+      stat_function(fun=fun_MM,color="blue")+ xlim(0, max(S))
+    
+      return(enplot)}
+  
+  else {
+    library(ggplot2) 
+    endata <-data.frame(S,V)
+    enplot<-ggplot(endata, aes (x = S, y = V))+ geom_point(color="black") + 
+      xlab(Xlab) +
+      ylab(Ylab) +
+      theme_bw() +
+      labs(title ="\nMichaelis-Menten Plot\n")+
+      theme(plot.title = element_text(hjust=0.5))+
+    
+      return(enplot)}
+  }
+
+#the resulting graph:
+ mich.ment2(S,V,MMcurve=TRUE)
+ 
+#changing it to MMcurve=FALSE will remove the line, in case you only want to plot the data as points. 
+
+
