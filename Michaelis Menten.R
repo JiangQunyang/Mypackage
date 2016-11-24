@@ -60,7 +60,7 @@ mich.ment2 <-function(S,V,MMcurve=TRUE) {
       ylab(Ylab) +
       theme_bw() +
       labs(title ="\nMichaelis-Menten Plot\n")+
-      theme(plot.title = element_text(hjust=0.5))+
+      theme(plot.title = element_text(hjust=0.5))
     
       return(enplot)}
   }
