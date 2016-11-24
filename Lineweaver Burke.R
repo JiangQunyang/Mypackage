@@ -25,7 +25,7 @@ lbp <-  ggplot(lbpdata, aes(x= lS, y= lv)) +
         ggtitle("Lineweaver Burke Plot") +
         xlab("1/S") +
         ylab("1/v") +
-        theme_linedraw()
+        theme_bw()
 
 
 # We then need to calculate and display the equation for the line of best fit we just plotted.
@@ -48,7 +48,7 @@ lm_eqn = function(m) {
   as.character(as.expression(eq));                 
 }
 
-p1 = lbp + geom_text(aes(x = 0.2, y = 0.01, label = lm_eqn(lm(lv ~ lS, lbpdata))), parse = TRUE)
+p1 = lbp + geom_text(aes(x=max(S)/2, y =max(ratio)/2, hjust=0, label = lm_eqn(lm(lv ~ lS, lbpdata))), parse = TRUE)
 p1
 
 # The Lineweaver Burke Plot now displays the equation for the line of best fit.
