@@ -1,7 +1,9 @@
 #Load ggplot2
 library(ggplot2)
 
-#Eadie Hofstee plot function
+
+#### Eadie Hofstee Plot Function ####
+
 EadieHofstee <- function(enz.data){
   EHmodel <- lm(enz.data[,2] ~ enz.data[,5])
   EH.Y.intercept <- c(0, EHmodel$coefficients[[1]])
@@ -16,14 +18,15 @@ EadieHofstee <- function(enz.data){
     ylim(0, (EH.Y.intercept[2]*1.05)) +
     theme_bw() +
     theme(plot.title = element_text(hjust=0.5)) +
-    geom_abline(intercept = EHmodel$coefficients[[1]], slope = EHmodel$coefficients[[2]], color = "blue", size = 1)
+    geom_abline(intercept = EHmodel$coefficients[[1]], slope = EHmodel$coefficients[[2]], color = "blue", size = 1)+
+    geom_vline(xintercept = 0, size=0.5)
   return(EHplot)
   return(EH.equation)
 }
 
 EadieHofstee(enz.data)
 
-# EH formula
+# EH formula  -Gives the equation of the line as well as the x and y intercepts      
 EH.formula <- function(enz.data){
   EHmodel <- lm(enz.data[,2] ~ enz.data[,5])
   EH.Y.intercept <- paste("y intercept = (", 0,", ", (signif(EHmodel$coefficients[[1]], 3)), ")", collapse="", sep="")
@@ -32,4 +35,5 @@ EH.formula <- function(enz.data){
   EH.data <- c(EH.X.intercept, EH.Y.intercept, EH.X.intercept, EH.equation)
   return(EH.data)
 }
+
 EH.formula(enz.data)
