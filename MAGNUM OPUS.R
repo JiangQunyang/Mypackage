@@ -1,3 +1,5 @@
+########## INITIALISING ##########
+
 ## libraries
 library(ggplot2)
 
@@ -21,8 +23,9 @@ ReadIn <- function(S, V){
 }
 enz.data <- ReadIn(S, V)
 
+########## FUNCTIONS ##########
 
-## Km Vmax 
+## Km Vmax (Using Eadie Hofstee method)
 Km.Vmax <- function(enz.data){
   EHmodel <- lm(enz.data[,2] ~ enz.data[,5])
   Vmax <- EHmodel$coefficients[[1]]
