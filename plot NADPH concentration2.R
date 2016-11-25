@@ -33,6 +33,7 @@ stdNADPH<-function(abs,molbs=6.22,lt=1,line=TRUE){
       xlab("NADPH concentration (mol/L)")+
       ylab("Absorbance (340nm)")+
       labs(title ="NADPH Standard Curve")+
+      theme(plot.title = element_text(hjust=0.5))+
       theme_bw()+
       annotate(geom="text", x=max(abs)/7, y= max(abs)*0.7, label="Abs         Ctr",  color="red")
 
